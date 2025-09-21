@@ -24,10 +24,11 @@ fig = px.bar(
     y="Mean",
     error_y="Std",
     color="Model",
-    title=f"Accuracy with {tolerance} leeway of tolerance")
+    title=f"Accuracy with {tolerance} points leeway of tolerance")
 
 fig.update_yaxes(range=[0, 1.05])
 
 st.plotly_chart(fig, use_container_width=True)
+
 
 
