@@ -26,6 +26,7 @@ fig = px.bar(
     color="Model",
     title=f"Accuracy with {tolerance} leeway of tolerance")
 
-fig.update_yaxes(range(0,1.05))
+fig.update_yaxes(range[0, 1.05])
 
 st.plotly_chart(fig, use_container_width=True)
+
