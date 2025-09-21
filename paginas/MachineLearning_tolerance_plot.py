@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 import os
 
-path = os.path.join("..", "bestanden", "model_tolerance_results.csv")
+path = os.path.join("bestanden", "model_tolerance_results.csv")
 df = pd.read_csv(path)
 
 st.title("Machine Learning")
