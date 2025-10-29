@@ -39,7 +39,7 @@ if include_features:
     ]
 
 overall_best = df.groupby("Model")["Accuracy"].max().reset_index(name="Overall Best Accuracy")
-filtered_best = filtered_df.groupby("Model")["Accuracy"].max().reset_index(name="Filtered Best Accuracy")
+filtered_best = filtered_df.groupby("Model")["Accuracy"].mean().reset_index(name="Filtered Best Accuracy")
 summary = pd.merge(overall_best, filtered_best, on="Model", how="left").fillna(0)
 summary = summary.sort_values(by="Overall Best Accuracy", ascending=False)
 
