@@ -24,9 +24,11 @@ with col1:
     )
 
 with col2:
+    st.markdown("Select columns to include or exclude:")
     all_features = sorted(set(",".join(df["Features"].values).replace(" ", "").split(",")))
     include_features = []
     for feature in all_features:
+        checked = True if feature == "Sex" else False
         if st.checkbox(feature, value=False, key=f"feature_{feature}"):
             include_features.append(feature)
 
@@ -35,11 +37,23 @@ if include_features:
     filtered_df = filtered_df[
         filtered_df["Features"].apply(lambda f: all(feat in f for feat in include_features))
     ]
-  
-st.dataframe(filtered_df.sort_values(by="Accuracy", ascending=False), use_container_width=True)
-summary = filtered_df.groupby("Model")["Accuracy"].max().reset_index().sort_values(by="Accuracy", ascending=False)
+
+overall_best = df.groupby("Model")["Accuracy"].max().reset_index(name="Overall Best Accuracy")
+filtered_best = filtered_df.groupby("Model")["Accuracy"].max().reset_index(name="Filtered Best Accuracy")
+summary = pd.merge(overall_best, filtered_best, on="Model", how="left").fillna(0)
+summary = summary.sort_values(by="Overall Best Accuracy", ascending=False)
 
 fig = go.Figure()
+
+fig.add_trace(go.Bar(
+    x=summary["Model"],
+    y=summary["Overall Best Accuracy"],
+    text=summary["Overall Best Accuracy"].apply(lambda x: f"{x:.3f}"),
+    textposition="outside",
+    marker=dict(color="lightgray"),
+    name="Overall Best Accuracy",
+    opacity=0.6
+))
 
 fig.add_trace(go.Bar(
     x=summary["Model"],
@@ -51,12 +65,17 @@ fig.add_trace(go.Bar(
 ))
 
 fig.update_layout(
-    title="📊 Best Model Accuracy Based on Selected Features",
+    title=" Model Accuracy Comparison (Overall vs Selected Features)",
     xaxis_title="Model",
     yaxis_title="Accuracy",
     yaxis=dict(range=[0, 1]),
     template="plotly_white",
-    height=500
+    barmode="overlay",
+    height=550,
+    legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="center", x=0.5)
 )
 
 st.plotly_chart(fig, use_container_width=True)
+
+st.markdown("Here, every possible option, sorted by accuracy, is shown:")
+st.dataframe(filtered_df.sort_values(by="Accuracy", ascending=False), use_container_width=True)
