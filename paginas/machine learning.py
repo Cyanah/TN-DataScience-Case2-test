@@ -37,6 +37,7 @@ if include_features:
     ]
   
 st.dataframe(filtered_df.sort_values(by="Accuracy", ascending=False), use_container_width=True)
+summary = filtered_df.groupby("Model")["Accuracy"].max().reset_index().sort_values(by="Accuracy", ascending=False)
 
 fig = go.Figure()
 
