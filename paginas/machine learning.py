@@ -83,5 +83,5 @@ fig.update_layout(
 
 st.plotly_chart(fig, use_container_width=True)
 
-st.markdown("Here, every possible option, sorted by accuracy, is shown:")
+st.markdown("Here, all selected models and selected columns, sorted by accuracy, are shown:")
 st.dataframe(filtered_df.sort_values(by="Accuracy", ascending=False), use_container_width=True)
