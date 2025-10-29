@@ -35,10 +35,11 @@ with col2:
 filtered_df = df[df["Model"].isin(selected_models)]
 if include_features:
     filtered_df = filtered_df[
-        filtered_df["Features"].apply(lambda f: all(feat in f for feat in include_features))
+        filtered_df["Features"].apply(lambda f: set(f.replace(" ", "").split(",")) == set(include_features))
     ]
-else:
+if filtered_df.empty:
     st.warning("No columns selected, please select columns.")
+    st.stop()
 
 overall_best = df.groupby("Model")["Accuracy"].max().reset_index(name="Overall Best Accuracy")
 filtered_best = filtered_df.groupby("Model")["Accuracy"].mean().reset_index(name="Filtered Best Accuracy")
