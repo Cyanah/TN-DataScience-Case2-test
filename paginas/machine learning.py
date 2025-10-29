@@ -57,7 +57,7 @@ fig.add_trace(go.Bar(
 
 fig.add_trace(go.Bar(
     x=summary["Model"],
-    y=summary["Accuracy"],
+    y=summary["Filtered Best Accuracy"],
     text=summary["Accuracy"].apply(lambda x: f"{x:.3f}"),
     textposition="outside",
     marker=dict(color="royalblue"),
