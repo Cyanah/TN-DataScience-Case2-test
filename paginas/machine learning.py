@@ -5,7 +5,7 @@ import os
 
 st.set_page_config(page_title="Titanic Model Accuracy Dashboard", layout="centered")
 
-st.title("🚢 Titanic Model Accuracy Dashboard")
+st.title("Titanic Model Accuracy Dashboard")
 
 path = os.path.join("bestanden", "Titanic_Model_Combination_Accuracies.csv")
 df = pd.read_csv(path)
