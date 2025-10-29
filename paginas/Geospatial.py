@@ -47,12 +47,9 @@ for _, row in agg_df.iterrows():
     Average Fare: ${row['avg_fare']:.2f}<br>
     Survival Rate: {row['survival_rate']*100:.1f}%
     """
-    folium.CircleMarker(
+    folium.Marker(
         location=[row["lat"], row["lon"]],
-        radius=10 + row["passenger_count"]/50,
-        color="blue",
-        fill=True,
-        fill_opacity=0.6,
+        icon=folium.Icon(color="blue", icon="info-sign"),
         popup=folium.Popup(popup_html, max_width=300)
     ).add_to(m)
 
