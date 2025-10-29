@@ -3,7 +3,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import os
 
-st.set_page_config(page_title="Titanic Model Accuracy Dashboard", layout="wide")
+st.set_page_config(page_title="Titanic Model Accuracy Dashboard", layout="centered")
 
 st.title("🚢 Titanic Model Accuracy Dashboard")
 
