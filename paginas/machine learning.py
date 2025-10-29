@@ -38,21 +38,24 @@ if include_features:
   
 st.dataframe(filtered_df.sort_values(by="Accuracy", ascending=False), use_container_width=True)
 
-if not filtered_df.empty:
-    summary = filtered_df.groupby("Model")["Accuracy"].agg(["mean", "max"]).reset_index()
+fig = go.Figure()
 
-    fig, ax = plt.subplots(figsize=(10, 6))
-    bars1 = ax.bar(summary["Model"], summary["max"], label="Best Accuracy")
-    bars2 = ax.bar(summary["Model"], summary["mean"], alpha=0.6, label="Mean Accuracy")
+fig.add_trace(go.Bar(
+    x=summary["Model"],
+    y=summary["Accuracy"],
+    text=summary["Accuracy"].apply(lambda x: f"{x:.3f}"),
+    textposition="outside",
+    marker=dict(color="royalblue"),
+    name="Best Accuracy"
+))
 
-    ax.set_title("Model Accuracies (Mean and Best)", fontsize=14)
-    ax.set_xlabel("Model")
-    ax.set_ylabel("Accuracy")
-    ax.set_ylim(0, 1)
-    ax.legend()
-    plt.xticks(rotation=45, ha="right")
+fig.update_layout(
+    title="📊 Best Model Accuracy Based on Selected Features",
+    xaxis_title="Model",
+    yaxis_title="Accuracy",
+    yaxis=dict(range=[0, 1]),
+    template="plotly_white",
+    height=500
+)
 
-    for i, v in enumerate(summary["max"]):
-        ax.text(i, v + 0.01, f"{v:.3f}", ha="center", fontsize=9)
-
-    st.pyplot(fig)
+st.plotly_chart(fig, use_container_width=True)
