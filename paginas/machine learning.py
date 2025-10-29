@@ -37,6 +37,8 @@ if include_features:
     filtered_df = filtered_df[
         filtered_df["Features"].apply(lambda f: all(feat in f for feat in include_features))
     ]
+else:
+    st.warning("No columns selected, please select columns.")
 
 overall_best = df.groupby("Model")["Accuracy"].max().reset_index(name="Overall Best Accuracy")
 filtered_best = filtered_df.groupby("Model")["Accuracy"].mean().reset_index(name="Filtered Best Accuracy")
