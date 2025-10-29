@@ -37,6 +37,9 @@ if include_features:
     filtered_df = filtered_df[
         filtered_df["Features"].apply(lambda f: set(f.replace(" ", "").split(",")) == set(include_features))
     ]
+if not include_features:
+    st.warning("No columns selected, please select columns.")
+    st.stop()
 if filtered_df.empty:
     st.warning("No columns selected, please select columns.")
     st.stop()
