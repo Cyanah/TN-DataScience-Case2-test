@@ -3,3 +3,4 @@ streamlit
 plotly
 matplotlib
 folium
+streamlit_folium
