@@ -17,6 +17,7 @@ col1, col2 = st.columns([1,1])
 with col1:
     all_models = sorted(df["Model"].unique())
     selected_models = st.multiselect(
+        "Select models to include or exclude:",
         options=all_models,
         default=all_models,
         key="models"
