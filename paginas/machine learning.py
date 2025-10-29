@@ -29,7 +29,7 @@ with col2:
     include_features = []
     for feature in all_features:
         checked = True if feature == "Sex" else False
-        if st.checkbox(feature, value=False, key=f"feature_{feature}"):
+        if st.checkbox(feature, value=checked, key=f"feature_{feature}"):
             include_features.append(feature)
 
 filtered_df = df[df["Model"].isin(selected_models)]
@@ -58,7 +58,7 @@ fig.add_trace(go.Bar(
 fig.add_trace(go.Bar(
     x=summary["Model"],
     y=summary["Filtered Best Accuracy"],
-    text=summary["Accuracy"].apply(lambda x: f"{x:.3f}"),
+    text=summary["Filtered Best Accuracy"].apply(lambda x: f"{x:.3f}"),
     textposition="outside",
     marker=dict(color="royalblue"),
     name="Best Accuracy"
