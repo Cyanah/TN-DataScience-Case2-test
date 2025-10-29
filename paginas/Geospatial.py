@@ -35,7 +35,7 @@ agg_df["lat"] = agg_df["Embarked"].map(lambda x: port_coords[x]["lat"])
 agg_df["lon"] = agg_df["Embarked"].map(lambda x: port_coords[x]["lon"])
 agg_df["port name"] = agg_df["Embarked"].map(lambda x: port_coords[x]["name"])
 
-m = folium.Map(location=[50.3755, -4.1427], zoom_start=5, tiles="OpenStreetMap") # Plymouth
+m = folium.Map(location=[50.3755, -4.1427], zoom_start=6, tiles="OpenStreetMap") # Plymouth
 
 for _, row in agg_df.iterrows():
     popup_html = f"""
