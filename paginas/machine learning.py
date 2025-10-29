@@ -1,6 +1,6 @@
 import pandas as pd
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 import os
 
 st.set_page_config(page_title="Titanic Model Accuracy Dashboard", layout="centered")
